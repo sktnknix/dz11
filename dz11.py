@@ -94,7 +94,7 @@ def translate_it(FR_path, ES_path, DE_path, path_to_result, lang_from, lang_to =
         try:
             DE.write(''.join(responseDE['text']))
         except Exception:
-            print('Не удается перевести на язык ' + lang_to)
+            print('Не удается перевести с языка ' + lang_from + ' на язык ' + lang_to)
 
     FR.close()
     ES.close()
@@ -103,4 +103,14 @@ def translate_it(FR_path, ES_path, DE_path, path_to_result, lang_from, lang_to =
 if __name__ == '__main__':
     FR_path, ES_path, DE_path = get_text_path()
     path_to_result = get_result_path()
-    translate_it(FR_path, ES_path, DE_path, path_to_result, 'de', 'en')
+    lang_to = input('На какой язык перевести или нажмите ENTER, чтобы перевести на русский: ')
+    while 1:
+        lang_from = input('С какого языка перевести: ')
+        if lang_from == '' or lang_from.isnumeric():
+            print('Не может быть пустым, только буквы')
+        else:
+            break
+    if lang_to == '':
+        translate_it(FR_path, ES_path, DE_path, path_to_result, lang_from)
+    else:
+        translate_it(FR_path, ES_path, DE_path, path_to_result, lang_from, lang_to)
